@@ -31,9 +31,17 @@ public class Login extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnRegistrar = findViewById(R.id.btnRegistrar);
 
+        btnRegistrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            Intent intent = new Intent(Login.this, Register.class);
+            startActivity(intent);
+            }
+        });
+
         btnLogin.setOnClickListener(new View.OnClickListener(){
             @Override
-                    public void onClick(View v) {
+            public void onClick(View v) {
                 String username = editUser.getText().toString();
                 String password = editPassword.getText().toString();
 
