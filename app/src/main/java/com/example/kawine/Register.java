@@ -16,8 +16,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class Register extends AppCompatActivity {
 
-    private EditText editUser, editPassword;
-    private Button btnRegistrar;
+    private EditText inputUser, inputPassword, inputPasswordVerify;
+    private Button btnRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,22 +25,33 @@ public class Register extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
 
-        editUser = findViewById(R.id.editUser);
-        editPassword = findViewById(R.id.editPassword);
-        btnRegistrar = findViewById(R.id.btnRegistrar);
+        inputUser = findViewById(R.id.inputUser);
+        inputPassword = findViewById(R.id.inputPassword);
+        inputPasswordVerify = findViewById(R.id.inputPasswordVerify);
+        btnRegister = findViewById(R.id.btnRegister);
 
-        btnRegistrar.setOnClickListener(new View.OnClickListener() {
+        btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String username = editUser.getText().toString();
-                String password = editPassword.getText().toString();
+                String username = inputUser.getText().toString();
+                String password = inputPassword.getText().toString();
+                String passwordVerify = inputPasswordVerify.getText().toString();
 
                 if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)){
-                    Toast.makeText( Register.this)
+                    Toast.makeText( Register.this, "Por favor ingrese un usuario y contraseña.", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (TextUtils.isEmpty(passwordVerify)){
+                        Toast.makeText( Register.this, "Por favor verifique la contraseña ingresada.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if(!password.equals(passwordVerify)){
+                            Toast.makeText( Register.this, "Las contraseñas ingresadas no coinciden.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Intent intent = new Intent(Register.this, Login.class);
+                            startActivity(intent);
+                        }
+                    }
                 }
-                Intent intent = new Intent(Login.this, Register.class);
-                startActivity(intent);
             }
         });
     }
